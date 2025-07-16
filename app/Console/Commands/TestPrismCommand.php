@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Services\AiService;
+use Exception;
 use Illuminate\Console\Command;
 
 final class TestPrismCommand extends Command
@@ -29,17 +30,17 @@ final class TestPrismCommand extends Command
     public function handle(AiService $aiService): int
     {
         $this->info('Testing Prism PHP integration...');
-        
+
         // Test 1: Basic text generation
         $this->info("\n1. Testing basic text generation:");
         try {
             $text = $aiService->generateText('Write a haiku about Laravel');
             $this->line($text);
             $this->info('✓ Text generation successful');
-        } catch (\Exception $e) {
-            $this->error('✗ Text generation failed: ' . $e->getMessage());
+        } catch (Exception $e) {
+            $this->error('✗ Text generation failed: '.$e->getMessage());
         }
-        
+
         // Test 2: Text generation with system prompt
         $this->info("\n2. Testing text generation with system prompt:");
         try {
@@ -49,10 +50,10 @@ final class TestPrismCommand extends Command
             );
             $this->line($text);
             $this->info('✓ Text generation with system prompt successful');
-        } catch (\Exception $e) {
-            $this->error('✗ Text generation with system prompt failed: ' . $e->getMessage());
+        } catch (Exception $e) {
+            $this->error('✗ Text generation with system prompt failed: '.$e->getMessage());
         }
-        
+
         // Test 3: Structured output
         $this->info("\n3. Testing structured output:");
         try {
@@ -81,19 +82,19 @@ final class TestPrismCommand extends Command
                     ],
                 ],
             ];
-            
+
             $data = $aiService->generateStructuredData(
                 'Review the Laravel framework',
                 $schema
             );
             $this->line(json_encode($data, JSON_PRETTY_PRINT));
             $this->info('✓ Structured output successful');
-        } catch (\Exception $e) {
-            $this->error('✗ Structured output failed: ' . $e->getMessage());
+        } catch (Exception $e) {
+            $this->error('✗ Structured output failed: '.$e->getMessage());
         }
-        
+
         $this->info("\n✅ Prism PHP integration test completed!");
-        
+
         return Command::SUCCESS;
     }
 }

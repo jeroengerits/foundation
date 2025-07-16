@@ -15,6 +15,7 @@ use Prism\Prism\Schema\StringSchema;
 final class AiService
 {
     private const DEFAULT_PROVIDER = Provider::Anthropic;
+
     private const DEFAULT_MODEL = 'claude-3-5-sonnet-20241022';
 
     /**

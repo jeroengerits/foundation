@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-    
+
     // AI Demo Routes
     Route::prefix('ai')->name('ai.')->group(function () {
         Route::post('generate-text', [AiDemoController::class, 'generateText'])->name('generate-text');
